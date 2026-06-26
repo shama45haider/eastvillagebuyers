@@ -1286,7 +1286,7 @@
     .evb-accent-duffle {
       top: 50%;
       left: -10px;
-      transform: translateY(-50%) rotate(6deg);
+      transform: translateY(calc(-50% + 192px)) rotate(6deg);
       width: 300px;
       opacity: 0.06;
     }
@@ -1298,9 +1298,9 @@
       opacity: 0.06;
     }
     .evb-accent-handbag {
-      bottom: -10px;
-      left: -25px;
-      width: 300px;
+      bottom: 28px;
+      left: 129px;
+      width: 280px;
       transform: rotate(-8deg);
       opacity: 0.06;
     }
@@ -1332,6 +1332,27 @@
       width: 280px;
       opacity: 0.05;
     }
+    .evb-accent-eeknicks {
+      bottom: 156px;
+      right: 260px;
+      width: 320px;
+      transform: rotate(-6deg);
+      opacity: 0.06;
+    }
+    .evb-accent-amiri {
+      bottom: 20px;
+      left: -20px;
+      width: 220px;
+      transform: rotate(10deg);
+      opacity: 0.05;
+    }
+    .evb-accent-goyard {
+      top: 30px;
+      right: -10px;
+      width: 260px;
+      transform: rotate(-12deg);
+      opacity: 0.06;
+    }
     @media (max-width: 768px) {
       .evb-accent-shoe { width: 200px; bottom: -20px; right: -10px; opacity: 0.05; }
       .evb-accent-duffle { width: 180px; opacity: 0.04; }
@@ -1341,6 +1362,9 @@
       .evb-accent-hat4 { width: 140px; opacity: 0.04; }
       .evb-accent-watch3 { width: 150px; opacity: 0.04; }
       .evb-accent-bag3 { width: 160px; opacity: 0.03; }
+      .evb-accent-eeknicks { width: 140px; opacity: 0.04; }
+      .evb-accent-amiri { width: 130px; opacity: 0.03; }
+      .evb-accent-goyard { width: 150px; opacity: 0.04; }
     }
 
     /* BUY · SELL · TRADE — category link cards */
@@ -3707,8 +3731,9 @@
        HERO — PROFESSIONAL INFO LAYOUT
        ═"—═"—═"—═"—═"—═"—═"—═"—═"—═"—═"—═"—═"—═"—═"——"— -->
   <section class="hero-section" style="position:relative;overflow:hidden;">
-    <img src="indeximagehandbag.webp" alt="Designer handbag" class="evb-accent-img evb-accent-handbag" loading="lazy">
     <img src="indeximagehat4.webp" alt="Luxury streetwear hat" class="evb-accent-img evb-accent-hat4" loading="lazy">
+    <img src="goyardbackground.webp" alt="Goyard luxury" class="evb-accent-img evb-accent-goyard" loading="lazy">
+    <img src="eeknicks.webp" alt="Sneaker collectible" class="evb-accent-img evb-accent-eeknicks" loading="lazy">
 
     <!-- Storefront — edge to edge -->
     <div class="hero-logo-frame">
@@ -3977,7 +4002,7 @@
         <!-- Watches -->
         <a href="we-buy-accessories-nyc.html" class="evb-cc">
           <div class="evb-cc-img">
-            <img src="luxurywatchbanner.jpeg" alt="Luxury Watches" width="290" height="195" loading="lazy" decoding="async" style="object-position:center 25%;">
+            <img src="luxurywatchbanner.webp" alt="Luxury Watches" width="290" height="195" loading="lazy" decoding="async" style="object-position:center 25%;">
           </div>
           <div class="evb-cc-body">
             <h3 class="evb-cc-name">Luxury Watches</h3>
@@ -4124,6 +4149,7 @@
   <section id="store" class="px-6 lg:px-20 py-12 bg-white scroll-mt-20" style="position:relative;overflow:hidden;">
     <img src="indeximagewatch.webp" alt="Luxury timepiece" class="evb-accent-img evb-accent-watch" loading="lazy">
     <img src="indeximagebag3.webp" alt="Designer bag" class="evb-accent-img evb-accent-bag3" loading="lazy">
+    <img src="amiribackground.webp" alt="Amiri fashion" class="evb-accent-img evb-accent-amiri" loading="lazy">
     <div class="flex justify-between items-center mb-6">
       <div>
         <h2 class="text-4xl font-black uppercase mb-1">Inside The Store</h2>
@@ -4176,6 +4202,7 @@
   <!-- FAQ -->
   <section id="faq" class="evb-faq-section scroll-mt-20" style="position:relative;overflow:hidden;">
     <img src="indeximageduffle.webp" alt="BAPE duffle bag" class="evb-accent-img evb-accent-duffle" loading="lazy">
+    <img src="indeximagehandbag.webp" alt="Designer handbag" class="evb-accent-img evb-accent-handbag" loading="lazy">
     <img src="indeximagehat.webp" alt="Streetwear hat" class="evb-accent-img evb-accent-hat" loading="lazy">
     <div class="evb-faq-wrap" style="position:relative;z-index:2;">
 
@@ -4702,7 +4729,16 @@
         <p class="evb-footer-tagline">NYC's trusted destination for authenticated luxury goods, fine jewelry, sneakers, watches, gold, silver, and designer fashion. Walk in for an on-the-spot offer.</p>
         <div class="evb-footer-social">
           <a href="https://instagram.com/eastvillagebuyers" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+            <img src="icon-instagram.png" alt="Instagram" width="24" height="24">
+          </a>
+          <a href="https://tiktok.com/@eastvillagebuyers" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+            <img src="icon-tiktok.png" alt="TikTok" width="24" height="24">
+          </a>
+          <a href="https://youtube.com/@eastvillagebuyers" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+            <img src="icon-youtube.png" alt="YouTube" width="24" height="24">
+          </a>
+          <a href="https://www.google.com/search?q=East+Village+Buyers+reviews" target="_blank" rel="noopener noreferrer" aria-label="Google Reviews">
+            <img src="icon-google.png" alt="Google Reviews" width="24" height="24">
           </a>
         </div>
       </div>
@@ -4775,7 +4811,7 @@
     </div>
 
     <div class="evb-footer-bottom">
-      <p class="evb-footer-copy">© 2026 East Village Buyers. All rights reserved.</p>
+      <p class="evb-footer-copy">© 2026 East Village Buyers. All rights reserved. · Social icons by <a href="https://icons8.com" target="_blank" rel="noopener noreferrer" style="color:#f97316;">Icons8</a></p>
       <p class="evb-footer-legal">Vintage USA Inc<span>·</span>DBA East Village Buyers<span>·</span>DCA Lic. #2070477</p>
     </div>
 
