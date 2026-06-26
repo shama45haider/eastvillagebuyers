@@ -46,9 +46,6 @@
   will-change: transform;
 }
 
-.evb-ticker-track:hover {
-  animation-play-state: paused;
-}
 
 @keyframes evbTickerScroll {
   from { transform: translate3d(0, 0, 0); }

@@ -109,108 +109,130 @@
 
 
 <style>
-  .jw-sec { max-width:1100px; margin:0 auto; padding:48px 20px; }
-  .jw-sec-head { margin-bottom:32px; }
-  .jw-sec-head h2 { font-family:'Montserrat',sans-serif; font-size:clamp(22px,4vw,30px); font-weight:900; margin:0 0 6px; }
-  .jw-sec-head p { font-family:'Poppins',sans-serif; font-size:14px; color:#777; margin:0; }
+  .jw { max-width:1100px; margin:0 auto; padding:48px 20px; }
+  .jw h2 { font-family:'Montserrat',sans-serif; font-size:clamp(20px,4vw,28px); font-weight:900; margin:0 0 6px; }
+  .jw > p { font-family:'Poppins',sans-serif; font-size:13px; color:#999; margin:0 0 28px; }
 
-  .jw-stack { display:flex; flex-direction:column; gap:0; }
+  .jw-cards {
+    display:grid;
+    grid-template-columns:1fr;
+    gap:14px;
+  }
+  @media(min-width:560px) { .jw-cards { grid-template-columns:repeat(2,1fr); } }
+  @media(min-width:860px) { .jw-cards { grid-template-columns:repeat(3,1fr); } }
 
-  .jw-row {
+  .jw-c {
     display:flex;
-    align-items:center;
-    gap:20px;
-    padding:20px 0;
-    border-bottom:1px solid rgba(0,0,0,0.06);
-    cursor:pointer;
-    transition:padding 0.35s ease;
-  }
-  .jw-row:first-child { border-top:1px solid rgba(0,0,0,0.06); }
-
-  .jw-row-img {
-    width:72px; height:72px;
-    border-radius:12px;
+    flex-direction:column;
+    background:#fff;
+    border-radius:14px;
     overflow:hidden;
-    flex-shrink:0;
-    transition:transform 0.35s ease;
+    box-shadow:0 1px 3px rgba(0,0,0,0.04);
+    border:1px solid rgba(0,0,0,0.06);
+    cursor:pointer;
+    position:relative;
+    transition:box-shadow 0.3s ease, border-color 0.3s ease;
   }
-  .jw-row-img img {
+  .jw-c:hover {
+    box-shadow:0 4px 16px rgba(0,0,0,0.08);
+    border-color:rgba(0,0,0,0.1);
+  }
+  .jw-c--open {
+    border-color:rgba(249,115,22,0.25);
+    box-shadow:0 6px 24px rgba(249,115,22,0.08);
+  }
+  .jw-c--open::before {
+    content:'';
+    position:absolute;
+    left:0; right:0; top:0;
+    height:3px;
+    background:#f97316;
+    border-radius:3px 3px 0 0;
+  }
+
+  .jw-c-photo {
+    width:100%; height:140px;
+    flex-shrink:0;
+    overflow:hidden;
+  }
+  .jw-c-photo img {
     width:100%; height:100%;
     object-fit:cover; display:block;
+    transition:transform 0.4s ease;
   }
-  .jw-row:hover .jw-row-img { transform:scale(1.04); }
+  .jw-c:hover .jw-c-photo img { transform:scale(1.06); }
 
-  .jw-row-info { flex:1; min-width:0; }
-  .jw-row-name {
+  .jw-c-body {
+    flex:1; min-width:0;
+    padding:16px 18px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+  }
+
+  .jw-c-top {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+  }
+
+  .jw-c-name {
     font-family:'Montserrat',sans-serif;
-    font-size:15px; font-weight:700; color:#111;
-    margin:0 0 2px;
+    font-size:14px; font-weight:700; color:#111;
+    margin:0;
   }
-  .jw-row-sub {
+  .jw-c-sub {
     font-family:'Poppins',sans-serif;
-    font-size:12px; color:#999; margin:0; font-weight:400;
+    font-size:12px; color:#aaa; margin:3px 0 0; font-weight:400;
   }
 
-  .jw-row-arrow {
-    width:28px; height:28px;
-    flex-shrink:0;
+  .jw-c-chevron {
+    width:24px; height:24px; flex-shrink:0;
     display:flex; align-items:center; justify-content:center;
+    transition:transform 0.35s ease;
     color:#ccc;
-    font-size:18px;
-    transition:transform 0.35s ease, color 0.35s ease;
   }
-  .jw-row:hover .jw-row-arrow { color:#f97316; }
-  .jw-row--open .jw-row-arrow { transform:rotate(90deg); color:#f97316; }
+  .jw-c-chevron svg { width:16px; height:16px; }
+  .jw-c--open .jw-c-chevron { transform:rotate(180deg); color:#f97316; }
 
-  .jw-row-detail {
+  .jw-c-detail {
     max-height:0;
     overflow:hidden;
-    transition:max-height 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease;
     opacity:0;
+    transition:max-height 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease;
   }
-  .jw-row--open + .jw-row-detail,
-  .jw-row-detail.jw-row-detail--open {
-    max-height:300px;
+  .jw-c--open .jw-c-detail {
+    max-height:350px;
     opacity:1;
   }
 
-  .jw-row-detail-inner {
-    padding:0 0 24px 92px;
+  .jw-c-detail-inner {
+    padding:14px 18px 18px;
+    border-top:1px solid rgba(0,0,0,0.05);
     display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:14px;
+    grid-template-columns:1fr;
+    gap:12px;
   }
 
-  .jw-d-label {
-    font-family:'Montserrat',sans-serif;
-    font-size:9px; font-weight:700;
-    letter-spacing:0.12em; text-transform:uppercase;
-    color:#f97316; margin:0 0 4px;
-  }
-  .jw-d-text {
-    font-family:'Poppins',sans-serif;
-    font-size:12px; color:#555; line-height:1.6; margin:0; font-weight:400;
-  }
-  .jw-d-tags { display:flex; flex-wrap:wrap; gap:5px; }
-  .jw-d-tag {
-    font-family:'Poppins',sans-serif;
-    font-size:10px; font-weight:500;
-    color:#c2410c; background:rgba(249,115,22,0.06);
-    padding:3px 10px; border-radius:4px;
+  .jw-c-dl { font-family:'Poppins',sans-serif; font-size:10px; font-weight:600; color:#f97316; letter-spacing:0.08em; text-transform:uppercase; margin:0 0 4px; }
+  .jw-c-dt { font-family:'Poppins',sans-serif; font-size:12px; color:#555; line-height:1.55; margin:0; font-weight:400; }
+  .jw-c-tags { display:flex; flex-wrap:wrap; gap:4px; }
+  .jw-c-tag { font-family:'Poppins',sans-serif; font-size:10px; font-weight:500; color:#b45309; background:#fef3e2; padding:3px 9px; border-radius:4px; }
+
+  @media(min-width:860px) {
+    .jw-c-photo { height:200px; }
+    .jw-cards { gap:18px; }
+    .jw-c-body { padding:18px 20px; }
+    .jw-c-name { font-size:16px; }
   }
 
-  @media(max-width:700px) {
-    .jw-row-img { width:56px; height:56px; border-radius:10px; }
-    .jw-row-detail-inner {
-      padding:0 0 20px 0;
-      grid-template-columns:1fr;
-      gap:12px;
-    }
-    .jw-row-name { font-size:14px; }
+  @media(max-width:559px) {
+    .jw-c--open .jw-c-detail { max-height:450px; }
   }
 
   @media(prefers-reduced-motion:reduce) {
-    .jw-row-detail, .jw-row-img, .jw-row-arrow { transition:none; }
+    .jw-c-detail, .jw-c-chevron, .jw-c-photo img { transition:none; }
   }
 </style>
 
@@ -231,102 +253,131 @@
       </div>
     </div>
 
-    <section class="jw-sec" id="metals">
-      <div class="jw-sec-head">
-        <p class="cp-eyebrow">What We Buy</p>
-        <h2>Jewelry &amp; Precious Metals</h2>
-        <p>Tap any category to see what we accept and how we evaluate it.</p>
-      </div>
+    <section class="jw" id="metals">
+      <h2>What Jewelry Do We Buy?</h2>
+      <p>Tap any category to see details.</p>
 
-      <div class="jw-stack" id="jwStack">
+      <div class="jw-cards" id="jwCards">
 
-        <div class="jw-row" data-jw="gold">
-          <div class="jw-row-img"><img src="jw-bg-gold.jpg" alt="Gold"></div>
-          <div class="jw-row-info"><div class="jw-row-name">Gold</div><div class="jw-row-sub">10K&ndash;24K &middot; chains, rings, bracelets, scrap, dental</div></div>
-          <div class="jw-row-arrow">&#8250;</div>
+        <div class="jw-c" data-jw>
+          <div class="jw-c-photo"><img src="jw-bg-gold.jpg" alt="Gold jewelry" loading="lazy"></div>
+          <div class="jw-c-body">
+            <div class="jw-c-top">
+              <div><div class="jw-c-name">Gold</div><div class="jw-c-sub">10K&ndash;24K &middot; chains, rings, bracelets, scrap</div></div>
+              <div class="jw-c-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+            </div>
+            <div class="jw-c-detail"><div class="jw-c-detail-inner">
+              <div><div class="jw-c-dl">Karats</div><div class="jw-c-tags"><span class="jw-c-tag">10K</span><span class="jw-c-tag">14K</span><span class="jw-c-tag">18K</span><span class="jw-c-tag">22K</span><span class="jw-c-tag">24K</span></div></div>
+              <div><div class="jw-c-dl">How We Price</div><p class="jw-c-dt">Karat purity, weight in grams, and live spot price. Designer pieces may carry premium over melt.</p></div>
+              <div><div class="jw-c-dl">How We Test</div><p class="jw-c-dt">Acid testing and electronic karat verification, done in front of you at the counter.</p></div>
+              <div><div class="jw-c-dl">Also Accepted</div><p class="jw-c-dt">Broken chains, single earrings, dental gold, gold watches, scrap of any condition.</p></div>
+            </div></div>
+          </div>
         </div>
-        <div class="jw-row-detail" data-detail="gold"><div class="jw-row-detail-inner">
-          <div><div class="jw-d-label">Karats</div><div class="jw-d-tags"><span class="jw-d-tag">10K</span><span class="jw-d-tag">14K</span><span class="jw-d-tag">18K</span><span class="jw-d-tag">22K</span><span class="jw-d-tag">24K</span></div></div>
-          <div><div class="jw-d-label">How We Price</div><p class="jw-d-text">Karat purity, weight in grams, and live spot price. Designer pieces may carry premium over melt.</p></div>
-          <div><div class="jw-d-label">How We Test</div><p class="jw-d-text">Acid testing and electronic karat verification, done in front of you at the counter.</p></div>
-          <div><div class="jw-d-label">Also Accepted</div><p class="jw-d-text">Broken chains, single earrings, dental gold, gold watches, scrap of any condition.</p></div>
-        </div></div>
 
-        <div class="jw-row" data-jw="diamonds">
-          <div class="jw-row-img"><img src="jw-bg-diamond.jpg" alt="Diamonds"></div>
-          <div class="jw-row-info"><div class="jw-row-name">Diamonds</div><div class="jw-row-sub">Loose stones &middot; engagement rings &middot; earrings</div></div>
-          <div class="jw-row-arrow">&#8250;</div>
+        <div class="jw-c" data-jw>
+          <div class="jw-c-photo"><img src="jw-bg-diamond.jpg" alt="Diamonds" loading="lazy"></div>
+          <div class="jw-c-body">
+            <div class="jw-c-top">
+              <div><div class="jw-c-name">Diamonds</div><div class="jw-c-sub">Loose stones &middot; engagement rings &middot; earrings</div></div>
+              <div class="jw-c-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+            </div>
+            <div class="jw-c-detail"><div class="jw-c-detail-inner">
+              <div><div class="jw-c-dl">The 4 C's</div><div class="jw-c-tags"><span class="jw-c-tag">Carat</span><span class="jw-c-tag">Color</span><span class="jw-c-tag">Clarity</span><span class="jw-c-tag">Cut</span></div></div>
+              <div><div class="jw-c-dl">How We Price</div><p class="jw-c-dt">Based on the 4 C's, fluorescence, and wholesale demand. GIA or AGS certificates help.</p></div>
+              <div><div class="jw-c-dl">How We Test</div><p class="jw-c-dt">10x loupe, diamond tester, UV light. We check natural vs. lab-grown and inclusions.</p></div>
+              <div><div class="jw-c-dl">Certificates</div><p class="jw-c-dt">Welcome but not required. We evaluate with or without documentation.</p></div>
+            </div></div>
+          </div>
         </div>
-        <div class="jw-row-detail" data-detail="diamonds"><div class="jw-row-detail-inner">
-          <div><div class="jw-d-label">The 4 C's</div><div class="jw-d-tags"><span class="jw-d-tag">Carat</span><span class="jw-d-tag">Color</span><span class="jw-d-tag">Clarity</span><span class="jw-d-tag">Cut</span></div></div>
-          <div><div class="jw-d-label">How We Price</div><p class="jw-d-text">Based on the 4 C's, fluorescence, and wholesale demand. GIA or AGS certificates help.</p></div>
-          <div><div class="jw-d-label">How We Test</div><p class="jw-d-text">10x loupe, diamond tester, UV light. We check natural vs. lab-grown and inclusions.</p></div>
-          <div><div class="jw-d-label">Certificates</div><p class="jw-d-text">Welcome but not required. We evaluate with or without documentation.</p></div>
-        </div></div>
 
-        <div class="jw-row" data-jw="silver">
-          <div class="jw-row-img"><img src="jw-bg-silver.jpg" alt="Silver"></div>
-          <div class="jw-row-info"><div class="jw-row-name">Silver</div><div class="jw-row-sub">Sterling &middot; flatware &middot; .925 &middot; .999 fine</div></div>
-          <div class="jw-row-arrow">&#8250;</div>
+        <div class="jw-c" data-jw>
+          <div class="jw-c-photo"><img src="jw-bg-silver.jpg" alt="Silver" loading="lazy"></div>
+          <div class="jw-c-body">
+            <div class="jw-c-top">
+              <div><div class="jw-c-name">Silver</div><div class="jw-c-sub">Sterling &middot; flatware &middot; .925 &middot; .999 fine</div></div>
+              <div class="jw-c-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+            </div>
+            <div class="jw-c-detail"><div class="jw-c-detail-inner">
+              <div><div class="jw-c-dl">Purity</div><div class="jw-c-tags"><span class="jw-c-tag">.925 Sterling</span><span class="jw-c-tag">.999 Fine</span><span class="jw-c-tag">Coin Silver</span></div></div>
+              <div><div class="jw-c-dl">How We Price</div><p class="jw-c-dt">Purity, weight, and spot price. Collectible or branded silver may carry premium over melt.</p></div>
+              <div><div class="jw-c-dl">How We Test</div><p class="jw-c-dt">Acid test and hallmark verification. We check .925 stamps and test unmarked pieces.</p></div>
+              <div><div class="jw-c-dl">Items</div><p class="jw-c-dt">Chains, flatware, tea sets, serving pieces, and collectible silver.</p></div>
+            </div></div>
+          </div>
         </div>
-        <div class="jw-row-detail" data-detail="silver"><div class="jw-row-detail-inner">
-          <div><div class="jw-d-label">Purity</div><div class="jw-d-tags"><span class="jw-d-tag">.925 Sterling</span><span class="jw-d-tag">.999 Fine</span><span class="jw-d-tag">Coin Silver</span></div></div>
-          <div><div class="jw-d-label">How We Price</div><p class="jw-d-text">Purity, weight, and spot price. Branded or collectible silver may carry premium over melt.</p></div>
-          <div><div class="jw-d-label">How We Test</div><p class="jw-d-text">Acid test and hallmark verification. We check .925 stamps and test unmarked pieces.</p></div>
-          <div><div class="jw-d-label">Items</div><p class="jw-d-text">Chains, flatware, tea sets, serving pieces, and collectible silver.</p></div>
-        </div></div>
 
-        <div class="jw-row" data-jw="platinum">
-          <div class="jw-row-img"><img src="jw-bg-platinum.jpg" alt="Platinum"></div>
-          <div class="jw-row-info"><div class="jw-row-name">Platinum</div><div class="jw-row-sub">Rings &middot; bands &middot; PT950 &middot; PT900</div></div>
-          <div class="jw-row-arrow">&#8250;</div>
+        <div class="jw-c" data-jw>
+          <div class="jw-c-photo"><img src="jw-bg-platinum.jpg" alt="Platinum" loading="lazy"></div>
+          <div class="jw-c-body">
+            <div class="jw-c-top">
+              <div><div class="jw-c-name">Platinum</div><div class="jw-c-sub">Rings &middot; bands &middot; PT950 &middot; PT900</div></div>
+              <div class="jw-c-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+            </div>
+            <div class="jw-c-detail"><div class="jw-c-detail-inner">
+              <div><div class="jw-c-dl">Purity</div><div class="jw-c-tags"><span class="jw-c-tag">PT950</span><span class="jw-c-tag">PT900</span><span class="jw-c-tag">IRID/PLAT</span></div></div>
+              <div><div class="jw-c-dl">How We Price</div><p class="jw-c-dt">Purity and weight with live spot pricing. Transparent scale readings at the counter.</p></div>
+            </div></div>
+          </div>
         </div>
-        <div class="jw-row-detail" data-detail="platinum"><div class="jw-row-detail-inner">
-          <div><div class="jw-d-label">Purity</div><div class="jw-d-tags"><span class="jw-d-tag">PT950</span><span class="jw-d-tag">PT900</span><span class="jw-d-tag">IRID/PLAT</span></div></div>
-          <div><div class="jw-d-label">How We Price</div><p class="jw-d-text">Purity and weight with live spot pricing. Transparent scale readings at the counter.</p></div>
-        </div></div>
 
-        <div class="jw-row" data-jw="estate">
-          <div class="jw-row-img"><img src="estatejewl.webp" alt="Estate jewelry"></div>
-          <div class="jw-row-info"><div class="jw-row-name">Estate &amp; Vintage</div><div class="jw-row-sub">Inherited &middot; antique &middot; any era or condition</div></div>
-          <div class="jw-row-arrow">&#8250;</div>
+        <div class="jw-c" data-jw>
+          <div class="jw-c-photo"><img src="estatejewl.webp" alt="Estate jewelry" loading="lazy"></div>
+          <div class="jw-c-body">
+            <div class="jw-c-top">
+              <div><div class="jw-c-name">Estate &amp; Vintage</div><div class="jw-c-sub">Inherited &middot; antique &middot; any era or condition</div></div>
+              <div class="jw-c-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+            </div>
+            <div class="jw-c-detail"><div class="jw-c-detail-inner">
+              <div><div class="jw-c-dl">What We Buy</div><p class="jw-c-dt">Vintage, antique, and inherited collections. Full estates or single pieces, any era.</p></div>
+              <div><div class="jw-c-dl">How We Price</div><p class="jw-c-dt">Each piece evaluated for melt, collectible, and designer premium after hands-on inspection.</p></div>
+              <div><div class="jw-c-dl">Large Collections</div><p class="jw-c-dt">Text photos to <a href="sms:9176088939" style="color:#f97316;text-decoration:none;font-weight:500;">917-608-8939</a> ahead so we can set aside time.</p></div>
+            </div></div>
+          </div>
         </div>
-        <div class="jw-row-detail" data-detail="estate"><div class="jw-row-detail-inner">
-          <div><div class="jw-d-label">What We Buy</div><p class="jw-d-text">Vintage, antique, and inherited collections. Full estates or single pieces.</p></div>
-          <div><div class="jw-d-label">How We Price</div><p class="jw-d-text">Each piece evaluated for melt, collectible, and designer premium after hands-on inspection.</p></div>
-          <div><div class="jw-d-label">Large Collections</div><p class="jw-d-text">Text photos to <a href="sms:9176088939" style="color:#f97316;text-decoration:none;font-weight:600;">917-608-8939</a> ahead so we can set aside time.</p></div>
-        </div></div>
 
-        <div class="jw-row" data-jw="designer">
-          <div class="jw-row-img"><img src="yslpurse.webp" alt="Designer jewelry"></div>
-          <div class="jw-row-info"><div class="jw-row-name">Designer Jewelry</div><div class="jw-row-sub">Cartier &middot; Tiffany &middot; Van Cleef &middot; David Yurman</div></div>
-          <div class="jw-row-arrow">&#8250;</div>
+        <div class="jw-c" data-jw>
+          <div class="jw-c-photo"><img src="yslpurse.webp" alt="Designer jewelry" loading="lazy"></div>
+          <div class="jw-c-body">
+            <div class="jw-c-top">
+              <div><div class="jw-c-name">Designer Jewelry</div><div class="jw-c-sub">Cartier &middot; Tiffany &middot; Van Cleef &middot; David Yurman</div></div>
+              <div class="jw-c-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+            </div>
+            <div class="jw-c-detail"><div class="jw-c-detail-inner">
+              <div><div class="jw-c-dl">Brands</div><div class="jw-c-tags"><span class="jw-c-tag">Cartier</span><span class="jw-c-tag">Tiffany</span><span class="jw-c-tag">Van Cleef</span><span class="jw-c-tag">David Yurman</span><span class="jw-c-tag">Bulgari</span><span class="jw-c-tag">Chrome Hearts</span></div></div>
+              <div><div class="jw-c-dl">How We Price</div><p class="jw-c-dt">Significant premium over melt based on brand, condition, model, and resale demand.</p></div>
+              <div><div class="jw-c-dl">Authentication</div><p class="jw-c-dt">Hallmarks, maker stamps, serial numbers, and construction verified against retail specs.</p></div>
+            </div></div>
+          </div>
         </div>
-        <div class="jw-row-detail" data-detail="designer"><div class="jw-row-detail-inner">
-          <div><div class="jw-d-label">Brands</div><div class="jw-d-tags"><span class="jw-d-tag">Cartier</span><span class="jw-d-tag">Tiffany</span><span class="jw-d-tag">Van Cleef</span><span class="jw-d-tag">David Yurman</span><span class="jw-d-tag">Bulgari</span><span class="jw-d-tag">Chrome Hearts</span></div></div>
-          <div><div class="jw-d-label">How We Price</div><p class="jw-d-text">Significant premium over melt based on brand, condition, model, and resale demand.</p></div>
-          <div><div class="jw-d-label">Authentication</div><p class="jw-d-text">Hallmarks, maker stamps, serial numbers, and construction verified against retail specs.</p></div>
-        </div></div>
 
-        <div class="jw-row" data-jw="coins">
-          <div class="jw-row-img"><img src="jw-bg-coins.jpg" alt="Coins and bullion"></div>
-          <div class="jw-row-info"><div class="jw-row-name">Coins &amp; Bullion</div><div class="jw-row-sub">Eagles &middot; Krugerrands &middot; Maple Leafs &middot; bars</div></div>
-          <div class="jw-row-arrow">&#8250;</div>
+        <div class="jw-c" data-jw>
+          <div class="jw-c-photo"><img src="jw-bg-coins.jpg" alt="Coins" loading="lazy"></div>
+          <div class="jw-c-body">
+            <div class="jw-c-top">
+              <div><div class="jw-c-name">Coins &amp; Bullion</div><div class="jw-c-sub">Eagles &middot; Krugerrands &middot; Maple Leafs &middot; bars</div></div>
+              <div class="jw-c-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+            </div>
+            <div class="jw-c-detail"><div class="jw-c-detail-inner">
+              <div><div class="jw-c-dl">What We Buy</div><div class="jw-c-tags"><span class="jw-c-tag">American Eagle</span><span class="jw-c-tag">Krugerrand</span><span class="jw-c-tag">Maple Leaf</span><span class="jw-c-tag">Gold Bars</span><span class="jw-c-tag">Silver Bars</span></div></div>
+              <div><div class="jw-c-dl">How We Price</div><p class="jw-c-dt">Metal content, weight, purity, and live spot. Numismatic coins may carry collector premium.</p></div>
+            </div></div>
+          </div>
         </div>
-        <div class="jw-row-detail" data-detail="coins"><div class="jw-row-detail-inner">
-          <div><div class="jw-d-label">What We Buy</div><div class="jw-d-tags"><span class="jw-d-tag">American Eagle</span><span class="jw-d-tag">Krugerrand</span><span class="jw-d-tag">Maple Leaf</span><span class="jw-d-tag">Gold Bars</span><span class="jw-d-tag">Silver Bars</span></div></div>
-          <div><div class="jw-d-label">How We Price</div><p class="jw-d-text">Metal content, weight, purity, and live spot. Numismatic coins may carry collector premium.</p></div>
-        </div></div>
 
-        <div class="jw-row" data-jw="broken">
-          <div class="jw-row-img"><img src="jw-bg-broken.jpg" alt="Broken jewelry"></div>
-          <div class="jw-row-info"><div class="jw-row-name">Broken &amp; Scrap</div><div class="jw-row-sub">Kinked chains &middot; single earrings &middot; dental gold</div></div>
-          <div class="jw-row-arrow">&#8250;</div>
+        <div class="jw-c" data-jw>
+          <div class="jw-c-photo"><img src="jw-bg-broken.jpg" alt="Broken jewelry" loading="lazy"></div>
+          <div class="jw-c-body">
+            <div class="jw-c-top">
+              <div><div class="jw-c-name">Broken &amp; Scrap</div><div class="jw-c-sub">Kinked chains &middot; single earrings &middot; dental gold</div></div>
+              <div class="jw-c-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+            </div>
+            <div class="jw-c-detail"><div class="jw-c-detail-inner">
+              <div><div class="jw-c-dl">What We Buy</div><p class="jw-c-dt">Kinked chains, single earrings, broken clasps, bent rings, dental gold, any scrap precious metal.</p></div>
+              <div><div class="jw-c-dl">How We Price</div><p class="jw-c-dt">Pure melt value &mdash; karat, weight, live spot. Broken doesn't mean worthless.</p></div>
+            </div></div>
+          </div>
         </div>
-        <div class="jw-row-detail" data-detail="broken"><div class="jw-row-detail-inner">
-          <div><div class="jw-d-label">What We Buy</div><p class="jw-d-text">Kinked chains, single earrings, broken clasps, bent rings, dental gold, any scrap precious metal.</p></div>
-          <div><div class="jw-d-label">How We Price</div><p class="jw-d-text">Pure melt value &mdash; karat, weight, live spot. Broken doesn't mean worthless.</p></div>
-        </div></div>
 
       </div>
     </section>
@@ -335,24 +386,14 @@
 
 <script>
 (function(){
-  var rows = document.querySelectorAll('.jw-row[data-jw]');
-
-  function closeAll() {
-    rows.forEach(function(r) { r.classList.remove('jw-row--open'); });
-    document.querySelectorAll('.jw-row-detail').forEach(function(d) { d.classList.remove('jw-row-detail--open'); });
-  }
-
-  rows.forEach(function(row) {
-    row.addEventListener('click', function() {
-      var key = row.getAttribute('data-jw');
-      var detail = document.querySelector('[data-detail="' + key + '"]');
-      if (!detail) return;
-      var wasOpen = row.classList.contains('jw-row--open');
-      closeAll();
+  var cards = document.querySelectorAll('#jwCards .jw-c');
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      var wasOpen = card.classList.contains('jw-c--open');
+      cards.forEach(function(c) { c.classList.remove('jw-c--open'); });
       if (!wasOpen) {
-        row.classList.add('jw-row--open');
-        detail.classList.add('jw-row-detail--open');
-        setTimeout(function() { row.scrollIntoView({ behavior:'smooth', block:'nearest' }); }, 150);
+        card.classList.add('jw-c--open');
+        setTimeout(function() { card.scrollIntoView({ behavior:'smooth', block:'nearest' }); }, 200);
       }
     });
   });
